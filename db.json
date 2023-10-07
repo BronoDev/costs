@@ -5,7 +5,7 @@
       "budget": "1500",
       "category": {
         "id": "3",
-        "name": "Desing"
+        "name": "Design"
       },
       "cost": 0,
       "services": [],
@@ -60,7 +60,7 @@
       "budget": "1000",
       "category": {
         "id": "3",
-        "name": "Desing"
+        "name": "Design"
       },
       "cost": 0,
       "services": [],
@@ -71,7 +71,7 @@
       "budget": "1000",
       "category": {
         "id": "3",
-        "name": "Desing"
+        "name": "Design"
       },
       "cost": 0,
       "services": [],
@@ -115,7 +115,7 @@
       "budget": "1244",
       "category": {
         "id": "3",
-        "name": "Desing"
+        "name": "Design"
       },
       "cost": 0,
       "services": [],
@@ -144,7 +144,7 @@
     },
     {
       "id": 3,
-      "name": "Desing"
+      "name": "Design"
     },
     {
       "id": 4,
