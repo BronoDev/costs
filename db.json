@@ -1,8 +1,8 @@
 {
   "projects": [
     {
-      "name": "DISCORD",
-      "budget": "90000",
+      "name": "Discord 3.0",
+      "budget": "50000",
       "category": {
         "id": "3",
         "name": "Design"

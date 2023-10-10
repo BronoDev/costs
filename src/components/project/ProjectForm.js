@@ -13,7 +13,7 @@ function ProjectForm({ handleSubmit, btnText, projectData }) {
     useEffect(() => {
         fetch("http://localhost:5000/categories", {
             method: "GET",
-            Headers: {
+            headers: {
                 'Content-Type': 'application/json'
             }
         }).then((resp) => resp.json())
