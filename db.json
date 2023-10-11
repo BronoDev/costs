@@ -7,8 +7,21 @@
         "id": "3",
         "name": "Design"
       },
-      "cost": 0,
-      "services": [],
+      "cost": 802,
+      "services": [
+        {
+          "name": "teste",
+          "cost": "2",
+          "description": "teste",
+          "id": "ef68f7ca-5ada-4233-b0f0-e8633e80a97e"
+        },
+        {
+          "name": "Design UX/UI",
+          "cost": "800",
+          "description": "Criar layout",
+          "id": "e6bd5254-812f-4669-aff8-c46045b124fd"
+        }
+      ],
       "id": 1
     }
   ],

@@ -1,3 +1,5 @@
+import { parse, v4 as uuidv4 } from 'uuid'
+
 import styles from './Project.module.css'
 
 import { useParams } from 'react-router-dom'
@@ -7,12 +9,15 @@ import Loading from '../layouts/Loading'
 import Container from '../layouts/Container'
 import ProjectForm from '../project/ProjectForm'
 import Message from '../layouts/Message'
+import ServiceForm from '../service/ServiceForm'
+import ServiceCard from '../service/ServiceCard'
 
 
 function Project() {
 
     const { id } = useParams()
     const [project, setProject] = useState([])
+    const [services, setServices] = useState([])
     const [showProjectForm, setShowProjectForm] = useState(false)
     const [showServiceForm, setShowServiceForm] = useState(false)
     const [message, setMessage] = useState()
@@ -28,6 +33,7 @@ function Project() {
             }).then((resp) => resp.json())
                 .then((data) => {
                     setProject(data)
+                    setServices(data.services)
                 })
                 .catch(err => console.log(err))
         }, 300)
@@ -58,6 +64,40 @@ function Project() {
                 setType('success')
             })
             .catch(err => console.log(err))
+    }
+
+    function createService(project) {
+        setMessage('')
+
+        const lastService = project.services[project.services.length - 1]
+
+        lastService.id = uuidv4()
+
+        const lastServiceCost = lastService.cost
+        const newCost = parseFloat(project.cost) + parseFloat(lastServiceCost)
+
+        if (newCost > parseFloat(project.budget)) {
+            setMessage("Orçamento insuficiente para adicionar serviço!")
+            setType('error')
+            project.services.pop()
+            return false
+        }
+        project.cost = newCost
+        fetch(`http://localhost:5000/projects/${project.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(project)
+        }).then((resp) => resp.json())
+            .then((data) => {
+                setShowServiceForm(false)
+            })
+            .catch(err => console.log(err))
+    }
+
+    function removeService() {
+
     }
 
     function toggleProjectForm() {
@@ -104,12 +144,29 @@ function Project() {
                             </button>
 
                             <div className={styles.project_info}>
-                                {showServiceForm && <div>formulario do serviço</div>}
+                                {showServiceForm && (<ServiceForm
+                                    handleSubmit={createService}
+                                    btnText='Adicionar Serviço'
+                                    projectData={project}
+                                />
+                                )}
                             </div>
                         </div>
                         <h2>Serviços</h2>
                         <Container customClass="start" >
-                            <p>Itens de serviços</p>
+                            {services.length > 0 &&
+                                services.map((service) => (
+                                    <ServiceCard
+                                        id={service.id}
+                                        name={service.name}
+                                        cost={service.cost}
+                                        description={service.description}
+                                        key={service.id}
+                                        handleRemove={removeService}
+                                    />
+                                ))
+                            }
+                            {services.length === 0 && <p>Não há serviços cadastrados!</p>}
                         </Container>
                     </Container>
                 </div>
